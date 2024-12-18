@@ -10,7 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Products\DeleteProduct\" />
+    <Folder Include="Products\GetProduct\" />
+    <Folder Include="Products\UpdateProduct\" />
   </ItemGroup>
 
 </Project>
