@@ -31,7 +31,7 @@ namespace Catalog.API.Products.UpdateProduct
                 product.ImageFile = command.ImageFile;
                 product.Price = command.Price;
 
-                session.Update<Product>();
+                session.Update(product);
 
                 await session.SaveChangesAsync(cancellationToken);
             }

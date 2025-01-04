@@ -1,7 +1,7 @@
 ﻿
 namespace Catalog.API.Products.DeleteProduct
 {
-    public record DeleteProductResponse(bool IsSuccess);
+    public record DeleteProductResponse(bool IsSuccess, string Message = default!);
 
     public class DeleteProductEndpoint : ICarterModule
     {
@@ -13,12 +13,17 @@ namespace Catalog.API.Products.DeleteProduct
                 {
                     var result = await sender.Send(new DeleteProductCommand(id));
 
+                    if (!result.IsSuccess)
+                    {
+                        return Results.NotFound(result.Message);
+                    }
+
                     var response = result.Adapt<DeleteProductResponse>();
 
                     return Results.Ok(response);
                 })
                 .WithName("DeleteProduct")
-                .Produces(StatusCodes.Status204NoContent)
+                .Produces(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .ProducesProblem(StatusCodes.Status404NotFound)
                 .WithDescription("Delete Product")
