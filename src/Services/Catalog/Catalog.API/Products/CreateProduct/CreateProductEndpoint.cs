@@ -1,10 +1,6 @@
 ﻿namespace Catalog.API.Products.CreateProduct
 {
-    public record CreateProductRequest(string Name,
-                                       List<string> Category,
-                                       string Description,
-                                       string ImageFile,
-                                       decimal Price);
+    public record CreateProductRequest(CreateProductDto Dto);
 
     public record CreateProductResponse(Guid Id);
 
@@ -16,9 +12,7 @@
                 "/products",
                 async (CreateProductRequest request, ISender sender) =>
                 {
-                    var command = request.Adapt<CreateProductCommand>();
-
-                    var result = await sender.Send(command);
+                    var result = await sender.Send(new CreateProductCommand(request.Dto));
 
                     var response = result.Adapt<CreateProductResponse>();
 
