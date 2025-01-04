@@ -1,4 +1,4 @@
-﻿Snamespace Catalog.API.Products.GetProduct
+﻿namespace Catalog.API.Products.GetProduct
 {
     public record GetProductByIdResponse(Product Product);
 
@@ -12,7 +12,7 @@
                 {
                     var result = await sender.Send(new GetProductByIdQuery(id));
 
-                    if(result.Product is null)
+                    if (result.Product is null)
                     {
                         return Results.NotFound(new { Message = "Product not found." });
                     }

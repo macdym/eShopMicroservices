@@ -1,7 +1,12 @@
 ﻿
 namespace Catalog.API.Products.UpdateProduct
 {
-    public record UpdateProductRequest(UpdateProductDto Dto);
+    public record UpdateProductRequest(Guid Id,
+                                       string Name,
+                                       List<string> Category,
+                                       string Description,
+                                       string ImageFile,
+                                       decimal Price);
     public record UpdateProductResponse(bool IsSuccess, string Message = default!);
 
     public class UpdateProductEndpoint : ICarterModule
@@ -12,7 +17,9 @@ namespace Catalog.API.Products.UpdateProduct
                 "/products",
                 async (UpdateProductRequest request, ISender sender) =>
                 {
-                    var result = await sender.Send(new UpdateProductCommand(request.Dto));
+                    var command = request.Adapt<UpdateProductCommand>();
+
+                    var result = await sender.Send(command);
 
                     if (!result.IsSuccess)
                     {

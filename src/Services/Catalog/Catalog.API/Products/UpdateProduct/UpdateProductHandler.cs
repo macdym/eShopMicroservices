@@ -1,7 +1,12 @@
 ﻿
 namespace Catalog.API.Products.UpdateProduct
 {
-    public record UpdateProductCommand(UpdateProductDto ProductDto) : ICommand<UpdateProductResult>;
+    public record UpdateProductCommand(Guid Id,
+                                       string Name,
+                                       List<string> Category,
+                                       string Description,
+                                       string ImageFile,
+                                       decimal Price) : ICommand<UpdateProductResult>;
 
     public record UpdateProductResult(bool IsSuccess, string Message = default!);
 
@@ -11,7 +16,7 @@ namespace Catalog.API.Products.UpdateProduct
         public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
             var product = await session
-                .LoadAsync<Product>(command.ProductDto.Id, cancellationToken);
+                .LoadAsync<Product>(command.Id, cancellationToken);
 
             if (product is null)
             {
@@ -20,11 +25,11 @@ namespace Catalog.API.Products.UpdateProduct
             }
             else
             {
-                product.Name = command.ProductDto.Name;
-                product.Category = command.ProductDto.Category;
-                product.Description = command.ProductDto.Description;
-                product.ImageFile = command.ProductDto.ImageFile;
-                product.Price = command.ProductDto.Price;
+                product.Name = command.Name;
+                product.Category = command.Category;
+                product.Description = command.Description;
+                product.ImageFile = command.ImageFile;
+                product.Price = command.Price;
 
                 session.Update<Product>();
 

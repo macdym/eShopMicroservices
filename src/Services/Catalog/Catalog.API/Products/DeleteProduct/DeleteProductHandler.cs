@@ -4,7 +4,7 @@
     
     public record DeleteProductResult(bool IsSucces);
 
-    internal class DeleteProductCommandHandler(IDocumentSession session, ILogger logger) 
+    internal class DeleteProductCommandHandler(IDocumentSession session, ILogger<DeleteProductCommandHandler> logger) 
         : ICommandHandler<DeleteProductCommand, DeleteProductResult>
     {
         public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
