@@ -1,4 +1,4 @@
-﻿namespace Catalog.API.Products.GetProduct
+﻿Snamespace Catalog.API.Products.GetProduct
 {
     public record GetProductByIdResponse(Product Product);
 
@@ -24,6 +24,7 @@
                 .WithName("GetProductById")
                 .Produces(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
+                .ProducesProblem(StatusCodes.Status404NotFound)
                 .WithDescription("Get Product By Id")
                 .WithSummary("Get Product By Id");
         }

@@ -26,6 +26,7 @@ namespace Catalog.API.Products.UpdateProduct
                 .WithName("UpdateProduct")
                 .Produces(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
+                .ProducesProblem(StatusCodes.Status404NotFound)
                 .WithDescription("Update Product")
                 .WithSummary("Update Product");
         }
