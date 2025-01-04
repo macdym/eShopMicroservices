@@ -2,7 +2,7 @@
 {
     public record DeleteProductCommand(Guid Id) : ICommand;
 
-    public class DeleteProductCommandHandler(IDocumentSession session) : ICommandHandler<DeleteProductCommand>
+    internal class DeleteProductCommandHandler(IDocumentSession session) : ICommandHandler<DeleteProductCommand>
     {
         public async Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
