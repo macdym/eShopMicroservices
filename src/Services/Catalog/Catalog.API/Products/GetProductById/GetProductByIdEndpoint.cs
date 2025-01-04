@@ -7,10 +7,15 @@
         public void AddRoutes(IEndpointRouteBuilder app)
         {
             app.MapGet(
-                "/products/{Id}",
-                async (Guid Id, ISender sender) =>
+                "/products/{id}",
+                async (Guid id, ISender sender) =>
                 {
-                    var result = await sender.Send(new GetProductByIdQuery(Id));
+                    var result = await sender.Send(new GetProductByIdQuery(id));
+
+                    if(result.Product is null)
+                    {
+                        return Results.NotFound(new { Message = "Product not found." });
+                    }
 
                     var response = result.Adapt<GetProductByIdResponse>();
 
