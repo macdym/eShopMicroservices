@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Behaviors;
+using BuildingBlocks.CustomExceptions.Handlers;
 
 namespace Catalog.API
 {
@@ -22,6 +23,8 @@ namespace Catalog.API
             {
                 opts.Connection(builder.Configuration.GetConnectionString("Database")!);
             }).UseLightweightSessions();
+
+            builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
             return builder;
         }

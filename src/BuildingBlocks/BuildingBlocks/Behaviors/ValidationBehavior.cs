@@ -1,6 +1,7 @@
 ﻿using BuildingBlocks.CQRS;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace BuildingBlocks.Behaviors
 {
