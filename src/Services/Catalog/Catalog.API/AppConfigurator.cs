@@ -6,6 +6,8 @@
         {
             app.MapCarter();
 
+            app.UseExceptionHandler(opts => { });
+
             return app;
         }
     }
