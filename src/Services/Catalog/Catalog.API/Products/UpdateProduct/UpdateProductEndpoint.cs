@@ -21,11 +21,6 @@ namespace Catalog.API.Products.UpdateProduct
 
                     var result = await sender.Send(command);
 
-                    if (!result.IsSuccess)
-                    {
-                        return Results.NotFound(result.Message);
-                    }
-
                     var response = result.Adapt<UpdateProductResponse>();
 
                     return Results.Ok(response);
