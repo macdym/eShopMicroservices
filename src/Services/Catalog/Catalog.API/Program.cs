@@ -1,17 +1,8 @@
-var builder = WebApplication.CreateBuilder(args);
+using Catalog.API;
 
-builder.Services.AddCarter();
-
-builder.Services.AddMediatR((config) =>
-{
-    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
-});
-
-builder.Services.AddMarten(opts =>
-{
-    opts.Connection(builder.Configuration.GetConnectionString("Database")!);
-}).UseLightweightSessions();
-
+var builder = WebApplication
+    .CreateBuilder(args)
+    .RegisterServices();
 
 var app = builder.Build();
 
