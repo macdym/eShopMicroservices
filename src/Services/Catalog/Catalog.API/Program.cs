@@ -1,11 +1,8 @@
 using Catalog.API;
 
-var builder = WebApplication
+WebApplication
     .CreateBuilder(args)
-    .RegisterServices();
-
-var app = builder.Build();
-
-app.MapCarter();
-
-app.Run();
+    .RegisterServices()
+    .Build()
+    .Configure()
+    .Run();
