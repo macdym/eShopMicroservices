@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks.Behaviors;
 using BuildingBlocks.CustomExceptions.Handlers;
+using Catalog.API.Data;
 
 namespace Catalog.API
 {
@@ -26,6 +27,11 @@ namespace Catalog.API
             }).UseLightweightSessions();
 
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.InitializeMartenWith<CatalogInitialData>();
+            }
 
             return builder;
         }
