@@ -1,6 +1,9 @@
-﻿namespace Catalog.API.Products.GetProducts
+﻿using Marten.Pagination;
+
+namespace Catalog.API.Products.GetProducts
 {
-    public record GetProductsResponse(IEnumerable<Product> Products);
+    public record GetProductsRequest(int? PageNumber = 1, int? PageSize = 10);
+    public record GetProductsResponse(IEnumerable<Product> Products, long TotalItemCount = 0, long PageCount = 0);
 
     public class GetProductsEndpoint : ICarterModule
     {
@@ -8,13 +11,15 @@
         {
             app.MapGet(
                 "/products",
-                async (ISender sender) =>
+                async ([AsParameters] GetProductsRequest request,ISender sender) =>
                 {
-                    var result = await sender.Send(new GetProductsQuery());
+                    var query = request.Adapt<GetProductsQuery>();
+
+                    var result = await sender.Send(query);
 
                     var response = result.Adapt<GetProductsResponse>();
 
-                    return Results.Ok(result);
+                    return Results.Ok(response);
                 })
                 .WithName("GetProducts")
                 .Produces<GetProductsResponse>(StatusCodes.Status200OK)

@@ -1,8 +1,10 @@
-﻿namespace Catalog.API.Products.GetProducts
-{
-    public record GetProductsQuery() : IQuery<GetProductsResult>;
+﻿using Marten.Pagination;
 
-    public record GetProductsResult(IEnumerable<Product> Products);
+namespace Catalog.API.Products.GetProducts
+{
+    public record GetProductsQuery(int? PageNumber = 1, int? PageSize = 10) : IQuery<GetProductsResult>;
+
+    public record GetProductsResult(IEnumerable<Product> Products, long TotalItemCount = 0, long PageCount = 0);
 
     internal class GetProductsQueryHandler(IDocumentSession session)
         : IQueryHandler<GetProductsQuery, GetProductsResult>
@@ -11,9 +13,11 @@
         {
             var products = await session
                 .Query<Product>()
-                .ToListAsync(cancellationToken);
+                .ToPagedListAsync(query.PageNumber ?? 1,
+                                  query.PageSize ?? 10,
+                                  cancellationToken);
 
-            return new GetProductsResult(products);
+            return new GetProductsResult(products, products.TotalItemCount, products.PageCount);
         }
     }
 }

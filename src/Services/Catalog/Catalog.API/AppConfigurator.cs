@@ -8,6 +8,8 @@
 
             app.UseExceptionHandler(opts => { });
 
+            app.UseHealthChecks("/health");
+
             return app;
         }
     }

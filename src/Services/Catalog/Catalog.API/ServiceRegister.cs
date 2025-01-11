@@ -33,6 +33,8 @@ namespace Catalog.API
                 builder.Services.InitializeMartenWith<CatalogInitialData>();
             }
 
+            builder.Services.AddHealthChecks();
+
             return builder;
         }
     }
