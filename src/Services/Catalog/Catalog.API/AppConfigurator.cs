@@ -8,7 +8,11 @@
 
             app.UseExceptionHandler(opts => { });
 
-            app.UseHealthChecks("/health");
+            app.UseHealthChecks("/health",
+                new HealthCheckOptions
+                {
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
 
             return app;
         }

@@ -1,14 +1,11 @@
-﻿using BuildingBlocks.Behaviors;
-using BuildingBlocks.CustomExceptions.Handlers;
-using Catalog.API.Data;
-
-namespace Catalog.API
+﻿namespace Catalog.API
 {
     public static class ServiceRegister
     {
         public static WebApplicationBuilder RegisterServices(this WebApplicationBuilder builder)
         {
             var assemblyMarker = typeof(Program).Assembly;
+            var connectionString  = builder.Configuration.GetConnectionString("Database");
 
             builder.Services.AddCarter();
 
@@ -23,7 +20,7 @@ namespace Catalog.API
 
             builder.Services.AddMarten(opts =>
             {
-                opts.Connection(builder.Configuration.GetConnectionString("Database")!);
+                opts.Connection(connectionString!);
             }).UseLightweightSessions();
 
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
@@ -33,7 +30,8 @@ namespace Catalog.API
                 builder.Services.InitializeMartenWith<CatalogInitialData>();
             }
 
-            builder.Services.AddHealthChecks();
+            builder.Services.AddHealthChecks()
+                .AddNpgSql(connectionString!);
 
             return builder;
         }
