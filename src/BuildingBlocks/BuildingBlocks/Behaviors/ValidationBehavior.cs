@@ -1,8 +1,6 @@
 ﻿using BuildingBlocks.CQRS;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-
 namespace BuildingBlocks.Behaviors
 {
     public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)

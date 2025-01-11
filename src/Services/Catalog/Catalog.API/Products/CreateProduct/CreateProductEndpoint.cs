@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Behaviors;
-
-namespace Catalog.API.Products.CreateProduct
+﻿namespace Catalog.API.Products.CreateProduct
 {
     public record CreateProductRequest(string Name,
                                        List<string> Category,

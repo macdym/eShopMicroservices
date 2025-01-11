@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.CustomExceptions;
-
-namespace Catalog.API.Products.GetProduct
+﻿namespace Catalog.API.Products.GetProduct
 {
     public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdResult>;
 
