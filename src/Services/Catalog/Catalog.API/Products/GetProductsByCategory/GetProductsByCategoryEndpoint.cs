@@ -2,7 +2,7 @@
 
 namespace Catalog.API.Products.GetProductsByCategory
 {
-    public record GetProductsByCategoryRequest(int? PageNumber = 1, int? PageSize = 10);
+    public record GetProductsByCategoryRequest(string Category, int? PageNumber = 1, int? PageSize = 10);
 
     public record GetProductsByCategoryResponse(IEnumerable<Product> Products, long TotalItemCount = 0, long PageCount = 0);
 
@@ -12,7 +12,7 @@ namespace Catalog.API.Products.GetProductsByCategory
         {
             app.MapGet(
                 "/products/category/{category}",
-                async (GetProductsByCategoryRequest request, ISender sender) =>
+                async ([AsParameters] GetProductsByCategoryRequest request, ISender sender) =>
                 {
                     var query = request.Adapt<GetProductsByCategoryQuery>();
 

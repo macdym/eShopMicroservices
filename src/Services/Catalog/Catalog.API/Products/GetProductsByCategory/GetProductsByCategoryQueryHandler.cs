@@ -19,7 +19,7 @@ namespace Catalog.API.Products.GetProductsByCategory
                                   query.PageSize ?? 10,
                                   cancellationToken);
 
-            return new GetProductsByCategoryResult(products);
+            return new GetProductsByCategoryResult(products, products.TotalItemCount, products.PageCount);
         }
     }
 }
