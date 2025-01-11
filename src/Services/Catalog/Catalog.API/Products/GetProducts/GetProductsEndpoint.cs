@@ -1,6 +1,4 @@
-﻿using Marten.Pagination;
-
-namespace Catalog.API.Products.GetProducts
+﻿namespace Catalog.API.Products.GetProducts
 {
     public record GetProductsRequest(int? PageNumber = 1, int? PageSize = 10);
     public record GetProductsResponse(IEnumerable<Product> Products, long TotalItemCount = 0, long PageCount = 0);

@@ -1,10 +1,10 @@
-﻿
-using Catalog.API.Products.GetProduct;
-using Catalog.API.Products.GetProducts;
+﻿using Catalog.API.Products.GetProducts;
 
 namespace Catalog.API.Products.GetProductsByCategory
 {
-    public record GetProductsByCategory(IEnumerable<Product> Products);
+    public record GetProductsByCategoryRequest(int? PageNumber = 1, int? PageSize = 10);
+
+    public record GetProductsByCategoryResponse(IEnumerable<Product> Products, long TotalItemCount = 0, long PageCount = 0);
 
     public class GetProductsByCategoryEndpoint : ICarterModule
     {
@@ -16,7 +16,7 @@ namespace Catalog.API.Products.GetProductsByCategory
                 {
                     var result = await sender.Send(new GetProductsByCategoryQuery(category));
 
-                    var response = result.Adapt<GetProductsByCategory>();
+                    var response = result.Adapt<GetProductsByCategoryResponse>();
 
                     return Results.Ok(result);
                 })
