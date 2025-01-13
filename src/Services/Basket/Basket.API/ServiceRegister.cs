@@ -1,4 +1,6 @@
-﻿namespace Basket.API
+﻿using Basket.API.Data;
+
+namespace Basket.API
 {
     public static class ServiceRegister
     {
@@ -23,6 +25,7 @@
                 opts.Connection(connectionString!);
             }).UseLightweightSessions();
 
+            builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
@@ -32,7 +35,7 @@
             }
 
             builder.Services.AddHealthChecks();
-                //.AddNpgSql(connectionString!);
+            //.AddNpgSql(connectionString!);
 
             return builder;
         }

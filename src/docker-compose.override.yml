@@ -19,7 +19,7 @@ services:
       - POSTGRES_DB=BasketDb
     restart: always
     ports:
-        - "5433:5433"
+        - "5433:5432"
     volumes:
       - postgres_basket:/var/lib/postgresql/data/
 
@@ -47,7 +47,7 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=basketdb;Port=5433;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
     depends_on:
-      - catalogdb
+      - basketdb
     ports:
       - "6001:8080"
       - "6061:8081"
