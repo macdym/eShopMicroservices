@@ -1,7 +1,6 @@
-﻿
-namespace Catalog.API.Products.DeleteProduct
+﻿namespace Catalog.API.Products.DeleteProduct
 {
-    public record DeleteProductResponse(bool IsSuccess, string Message = default!);
+    public record DeleteProductResponse(bool IsSuccess);
 
     public class DeleteProductEndpoint : ICarterModule
     {

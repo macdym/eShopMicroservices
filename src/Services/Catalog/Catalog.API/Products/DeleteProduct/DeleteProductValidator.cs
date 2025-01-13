@@ -4,7 +4,7 @@
     {
         public DeleteProductValidator()
         {
-            RuleFor(x => x.Id).NotEmpty().WithMessage("Product Id is required");
+            RuleFor(x => x.Id).NotEmpty().WithMessage("Product Id is required.");
         }
     }
 }
