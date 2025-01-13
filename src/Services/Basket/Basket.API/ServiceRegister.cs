@@ -29,13 +29,8 @@ namespace Basket.API
 
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-            if (builder.Environment.IsDevelopment())
-            {
-                //builder.Services.InitializeMartenWith<CatalogInitialData>();
-            }
-
-            builder.Services.AddHealthChecks();
-            //.AddNpgSql(connectionString!);
+            builder.Services.AddHealthChecks()
+                .AddNpgSql(connectionString!);
 
             return builder;
         }
