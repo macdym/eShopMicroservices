@@ -2,5 +2,5 @@ WebApplication
     .CreateBuilder(args)
     .RegisterServices()
     .Build()
-    .Configure()
+    .ConfigureApp()
     .Run();

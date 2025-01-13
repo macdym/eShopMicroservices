@@ -10,11 +10,11 @@
         {
             app.MapGet(
                 "/basket/{userName}",
-                async (GetBasketRequest request, ISender sender) =>
+                async (string userName, ISender sender) =>
                 {
-                    var query = request.Adapt<GetBasketQuery>();
-
-                    var result = await sender.Send(query);
+                    //var query = request.Adapt<GetBasketQuery>();
+                    var wtf = new GetBasketQuery(userName);
+                    var result = await sender.Send(wtf);
 
                     var response = result.Adapt<GetBasketResponse>();
 
