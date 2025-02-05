@@ -5,7 +5,7 @@
         public async Task<ShoppingCart> GetBasketAsync(string userName, CancellationToken cancellationToken = default)
         {
             var basket = (await session
-                .LoadAsync<ShoppingCart>(userName))
+                .LoadAsync<ShoppingCart>(userName, cancellationToken))
                 ??
                 throw new NotFoundException(nameof(ShoppingCart), userName);
 
@@ -16,9 +16,11 @@
         {
             try
             {
-                var basket = await GetBasketAsync(cart.UserName, cancellationToken);
+                var basketDb = await GetBasketAsync(cart.UserName, cancellationToken);
 
-                session.Update(basket);
+                basketDb.Adapt(cart);
+
+                session.Update(basketDb);
             }
             catch (NotFoundException)
             {
