@@ -5,7 +5,8 @@
         public static WebApplicationBuilder RegisterServices(this WebApplicationBuilder builder)
         {
             var assemblyMarker = typeof(Program).Assembly;
-            var connectionString = builder.Configuration.GetConnectionString("Database");
+            var dbConnectionString = builder.Configuration.GetConnectionString("Database");
+            var redisConnectionString = builder.Configuration.GetConnectionString("Redis");
 
             builder.Services.AddCarter();
 
@@ -20,7 +21,7 @@
 
             builder.Services.AddMarten(opts =>
             {
-                opts.Connection(connectionString!);
+                opts.Connection(dbConnectionString!);
             }).UseLightweightSessions();
 
             builder.Services.AddScoped<IBasketRepository, BasketRepository>();
@@ -34,7 +35,8 @@
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
             builder.Services.AddHealthChecks()
-                .AddNpgSql(connectionString!);
+                .AddNpgSql(dbConnectionString!)
+                .AddRedis(redisConnectionString!);
 
             return builder;
         }

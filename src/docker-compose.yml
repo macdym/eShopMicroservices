@@ -6,6 +6,7 @@ services:
 
   distributedcache:
     image: redis
+    command: ["redis-server", "--bind", "0.0.0.0"]
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
