@@ -7,8 +7,8 @@ global using FluentValidation;
 global using HealthChecks.UI.Client;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
-
 global using BuildingBlocks.CQRS;
+global using BuildingBlocks.Consts;
 global using BuildingBlocks.Behaviors;
 global using BuildingBlocks.CustomExceptions;
 global using BuildingBlocks.CustomExceptions.Handlers;

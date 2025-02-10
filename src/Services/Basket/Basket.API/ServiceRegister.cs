@@ -5,8 +5,8 @@
         public static WebApplicationBuilder RegisterServices(this WebApplicationBuilder builder)
         {
             var assemblyMarker = typeof(Program).Assembly;
-            var dbConnectionString = builder.Configuration.GetConnectionString("Database");
-            var redisConnectionString = builder.Configuration.GetConnectionString("Redis");
+            var dbConnectionString = builder.Configuration.GetConnectionString(ServiceRegisterConst.DATABASE);
+            var redisConnectionString = builder.Configuration.GetConnectionString(ServiceRegisterConst.REDIS);
 
             builder.Services.AddCarter();
 
@@ -29,7 +29,7 @@
 
             builder.Services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = builder.Configuration.GetConnectionString("Redis");
+                options.Configuration = redisConnectionString;
             });
 
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
