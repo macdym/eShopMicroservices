@@ -1,4 +1,7 @@
 ﻿global using Discount.Grpc;
+
+global using Grpc.Core;
+
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.Extensions.DependencyInjection;
 
