@@ -1,4 +1,4 @@
-﻿
+﻿global using Discount.Grpc;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.Extensions.DependencyInjection;
 
