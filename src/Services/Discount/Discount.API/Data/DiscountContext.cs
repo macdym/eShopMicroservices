@@ -1,6 +1,4 @@
-﻿using Discount.API.Models;
-
-namespace Discount.API
+﻿namespace Discount.API.Data
 {
     public class DiscountContext : DbContext
     {
@@ -9,7 +7,7 @@ namespace Discount.API
         public DiscountContext(DbContextOptions<DiscountContext> options)
             : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

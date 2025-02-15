@@ -1,5 +1,8 @@
 ﻿global using Discount.Grpc;
 global using Discount.API;
+global using Discount.API.Data;
+global using Discount.API.Models;
+global using Discount.API.Services;
 
 global using Grpc.Core;
 
