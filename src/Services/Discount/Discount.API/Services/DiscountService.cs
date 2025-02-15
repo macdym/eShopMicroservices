@@ -25,6 +25,11 @@
         {
             var coupon = request.Coupon.Adapt<Coupon>();
 
+            if (coupon is null)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid request object."));
+            }
+
             dbContext.Coupons.Add(coupon);
             await dbContext.SaveChangesAsync();
 
@@ -46,6 +51,11 @@
                 var createdCoupon = await CrateDiscount(createRequset, context);
 
                 return createdCoupon.Adapt<CouponModel>();
+            }
+
+            if (request.Coupon.Adapt<Coupon>() is null)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid request object."));
             }
 
             coupon.Description = coupon.Description;
@@ -71,8 +81,6 @@
                 logger.LogInformation(
                     "Discount is deleted for ProductName: {ProductName}", coupon.ProductName);
             }
-
-
 
             return new DeleteDiscountResponse { Success = true };
         }
