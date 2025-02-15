@@ -1,10 +1,26 @@
 ﻿namespace Discount.API.Services
 {
-    public class DiscountService : DiscountProtoService.DiscountProtoServiceBase
+    public class DiscountService(DiscountContext dbContext, ILogger<DiscountService> logger)
+        : DiscountProtoService.DiscountProtoServiceBase
     {
-        public override Task<CouponModel> GetDiscount(GetDiscountReqest request, ServerCallContext context)
+        public override async Task<CouponModel> GetDiscount(GetDiscountReqest request, ServerCallContext context)
         {
-            return base.GetDiscount(request, context);
+            var coupon = (await dbContext
+                .Coupons
+                .FirstOrDefaultAsync(x => x.ProductName == request.ProductName))
+                ??
+                new Coupon
+                {
+                    ProductName = "No discount",
+                    Description = "",
+                    Amount = 0
+                };
+
+            logger.LogInformation(
+                "Discount is retrieved for ProductName: {ProductName}, Amount: {Amount}",
+                coupon.ProductName, coupon.Amount);
+             
+            return coupon.Adapt<CouponModel>();
         }
 
         public override Task<CouponModel> CrateDiscount(CreateDiscountRequest request, ServerCallContext context)
