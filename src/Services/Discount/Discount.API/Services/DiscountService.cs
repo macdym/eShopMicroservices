@@ -59,9 +59,22 @@
             return coupon.Adapt<CouponModel>();
         }
 
-        public override Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
+        public override async Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
         {
-            return base.DeleteDiscount(request, context);
+            var coupon = await GetCouponAsync(request.ProductName);
+
+            if(coupon is not null)
+            {
+                dbContext.Coupons.Remove(coupon);
+                await dbContext.SaveChangesAsync();
+                
+                logger.LogInformation(
+                    "Discount is deleted for ProductName: {ProductName}", coupon.ProductName);
+            }
+
+
+
+            return new DeleteDiscountResponse { Success = true };
         }
 
         private async Task<Coupon?> GetCouponAsync(string productName)
