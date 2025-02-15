@@ -5,14 +5,13 @@
         public static WebApplicationBuilder RegisterServices(this WebApplicationBuilder builder)
         {
             var assemblyMarker = typeof(Program).Assembly;
-            var connectionString = builder.Configuration.GetConnectionString(ServiceRegisterConst.DATABASE);
+            var connectionString = builder.Configuration.GetConnectionString("Database");
 
             builder.Services.AddGrpc();
             builder.Services.AddDbContext<DiscountContext>(opts =>
             {
                 opts.UseSqlite(connectionString);
             });
-            builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
             return builder;
         }

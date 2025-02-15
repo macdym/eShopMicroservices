@@ -16,10 +16,3 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
 
 #endregion
-
-
-#region BuildingBlocks
-global using BuildingBlocks.Consts;
-global using BuildingBlocks.CustomExceptions.Handlers;
-
-#endregion

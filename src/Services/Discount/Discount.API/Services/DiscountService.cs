@@ -19,7 +19,7 @@
             logger.LogInformation(
                 "Discount is retrieved for ProductName: {ProductName}, Amount: {Amount}",
                 coupon.ProductName, coupon.Amount);
-             
+
             return coupon.Adapt<CouponModel>();
         }
 
