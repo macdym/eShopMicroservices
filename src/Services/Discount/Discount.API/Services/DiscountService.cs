@@ -5,9 +5,7 @@
     {
         public override async Task<CouponModel> GetDiscount(GetDiscountReqest request, ServerCallContext context)
         {
-            var coupon = (await dbContext
-                .Coupons
-                .FirstOrDefaultAsync(x => x.ProductName == request.ProductName))
+            var coupon = (await GetCouponAsync(request.ProductName))
                 ??
                 new Coupon
                 {
@@ -25,10 +23,9 @@
 
         public override async Task<CouponModel> CrateDiscount(CreateDiscountRequest request, ServerCallContext context)
         {
-            var coupon = request.Adapt<Coupon>();
+            var coupon = request.Coupon.Adapt<Coupon>();
 
             dbContext.Coupons.Add(coupon);
-
             await dbContext.SaveChangesAsync();
 
             logger.LogInformation(
@@ -38,14 +35,38 @@
             return coupon.Adapt<CouponModel>();
         }
 
-        public override Task<CouponModel> UpdateDiscount(UpdateDiscountRequest request, ServerCallContext context)
+        public override async Task<CouponModel> UpdateDiscount(UpdateDiscountRequest request, ServerCallContext context)
         {
-            return base.UpdateDiscount(request, context);
+            var coupon = await GetCouponAsync(request.Coupon.ProductName);
+
+            if(coupon is null)
+            {
+                var createRequset = request.Adapt<CreateDiscountRequest>();
+
+                var createdCoupon = await CrateDiscount(createRequset, context);
+
+                return createdCoupon.Adapt<CouponModel>();
+            }
+
+            coupon.Description = coupon.Description;
+            coupon.Amount = coupon.Amount;
+            await dbContext.SaveChangesAsync();
+
+            logger.LogInformation(
+                "Discount is updated for ProductName: {ProductName}, Description: {Descritpion}, Amount: {Amount}",
+                coupon.ProductName, coupon.Description, coupon.Amount);
+
+            return coupon.Adapt<CouponModel>();
         }
 
         public override Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
         {
             return base.DeleteDiscount(request, context);
+        }
+
+        private async Task<Coupon?> GetCouponAsync(string productName)
+        {
+            return await dbContext.Coupons.FirstOrDefaultAsync(x => x.ProductName == productName);
         }
     }
 }
