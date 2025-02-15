@@ -69,14 +69,16 @@
         {
             var coupon = await GetCouponAsync(request.ProductName);
 
-            if(coupon is not null)
+            if (coupon is null)
             {
-                dbContext.Coupons.Remove(coupon);
-                await dbContext.SaveChangesAsync();
-                
-                logger.LogInformation(
-                    "Discount is deleted for ProductName: {ProductName}", coupon.ProductName);
+                throw new RpcException(new Status(StatusCode.NotFound, "No discount to delete."));
             }
+
+            dbContext.Coupons.Remove(coupon);
+            await dbContext.SaveChangesAsync();
+            
+            logger.LogInformation(
+                "Discount is deleted for ProductName: {ProductName}", coupon.ProductName);
 
             return new DeleteDiscountResponse { Success = true };
         }
