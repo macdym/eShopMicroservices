@@ -21,7 +21,7 @@
             return coupon.Adapt<CouponModel>();
         }
 
-        public override async Task<CouponModel> CrateDiscount(CreateDiscountRequest request, ServerCallContext context)
+        public override async Task<CouponModel> CreateDiscount(CreateDiscountRequest request, ServerCallContext context)
         {
             var coupon = request.Coupon.Adapt<Coupon>();
 
@@ -46,11 +46,7 @@
 
             if(coupon is null)
             {
-                var createRequset = request.Adapt<CreateDiscountRequest>();
-
-                var createdCoupon = await CrateDiscount(createRequset, context);
-
-                return createdCoupon.Adapt<CouponModel>();
+                throw new RpcException(new Status(StatusCode.NotFound, "No discount to update."));
             }
 
             if (request.Coupon.Adapt<Coupon>() is null)
