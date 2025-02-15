@@ -1,4 +1,5 @@
 ﻿global using Discount.Grpc;
+global using Discount.API;
 
 global using Grpc.Core;
 
