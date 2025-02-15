@@ -23,9 +23,19 @@
             return coupon.Adapt<CouponModel>();
         }
 
-        public override Task<CouponModel> CrateDiscount(CreateDiscountRequest request, ServerCallContext context)
+        public override async Task<CouponModel> CrateDiscount(CreateDiscountRequest request, ServerCallContext context)
         {
-            return base.CrateDiscount(request, context);
+            var coupon = request.Adapt<Coupon>();
+
+            dbContext.Coupons.Add(coupon);
+
+            await dbContext.SaveChangesAsync();
+
+            logger.LogInformation(
+                "Discount is created for ProductName: {ProductName}, Description: {Descritpion}, Amount: {Amount}",
+                coupon.ProductName, coupon.Description, coupon.Amount);
+
+            return coupon.Adapt<CouponModel>();
         }
 
         public override Task<CouponModel> UpdateDiscount(UpdateDiscountRequest request, ServerCallContext context)
