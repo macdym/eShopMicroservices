@@ -25,5 +25,12 @@ global using BuildingBlocks.CustomExceptions.Handlers;
 global using Basket.API;
 global using Basket.API.Data;
 global using Basket.API.Models;
+global using Basket.API.Basket.StoreBasket;
+global using Basket.API.Basket.StoreBasket.Interfaces;
+
+#endregion
+
+#region BasketDiscount
+global using BasketDiscount.Models;
 
 #endregion

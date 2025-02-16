@@ -16,3 +16,9 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
 
 #endregion
+
+#region BasketDiscount
+global using BasketDiscount.Models;
+
+#endregion
+
