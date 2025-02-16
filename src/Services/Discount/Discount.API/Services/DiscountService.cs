@@ -11,12 +11,13 @@
                 {
                     ProductName = "No discount",
                     Description = "",
-                    Amount = 0
+                    Amount = 0,
+                    DiscountType = DiscountType.None
                 };
 
             logger.LogInformation(
-                "Discount is retrieved for ProductName: {ProductName}, Amount: {Amount}",
-                coupon.ProductName, coupon.Amount);
+                "Discount is retrieved for ProductName: {ProductName}, Amount: {Amount}, DiscountType: {DiscountType}",
+                coupon.ProductName, coupon.Amount, coupon.DiscountType);
 
             return coupon.Adapt<CouponModel>();
         }
@@ -34,8 +35,8 @@
             await dbContext.SaveChangesAsync();
 
             logger.LogInformation(
-                "Discount is created for ProductName: {ProductName}, Description: {Descritpion}, Amount: {Amount}",
-                coupon.ProductName, coupon.Description, coupon.Amount);
+                "Discount is created for ProductName: {ProductName}, Description: {Descritpion}, Amount: {Amount}, DiscountType: {DiscountType}",
+                coupon.ProductName, coupon.Description, coupon.Amount, coupon.DiscountType);
 
             return coupon.Adapt<CouponModel>();
         }
@@ -59,8 +60,8 @@
             await dbContext.SaveChangesAsync();
 
             logger.LogInformation(
-                "Discount is updated for ProductName: {ProductName}, Description: {Descritpion}, Amount: {Amount}",
-                coupon.ProductName, coupon.Description, coupon.Amount);
+                "Discount is updated for ProductName: {ProductName}, Description: {Descritpion}, Amount: {Amount}, DiscountType: {DiscountType}",
+                coupon.ProductName, coupon.Description, coupon.Amount, coupon.DiscountType);
 
             return coupon.Adapt<CouponModel>();
         }
