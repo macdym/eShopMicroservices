@@ -6,5 +6,6 @@
         public string ProductName { get; set; } = default!;
         public string Description { get; set; } = default!;
         public int Amount { get; set; }
+        public DiscountType DiscountType { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Discount.API.Migrations
 {
     [DbContext(typeof(DiscountContext))]
-    [Migration("20250215205422_InitialMigration")]
+    [Migration("20250216171557_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -32,6 +32,9 @@ namespace Discount.API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("DiscountType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -46,6 +49,7 @@ namespace Discount.API.Migrations
                             Id = 1,
                             Amount = 10,
                             Description = "IPhone X Discount 10%",
+                            DiscountType = 0,
                             ProductName = "IPhone X"
                         },
                         new
@@ -53,6 +57,7 @@ namespace Discount.API.Migrations
                             Id = 2,
                             Amount = 10,
                             Description = "Samsung 10 Discount 10%",
+                            DiscountType = 0,
                             ProductName = "Samsung 10"
                         });
                 });

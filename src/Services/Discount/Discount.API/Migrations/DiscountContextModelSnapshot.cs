@@ -29,6 +29,9 @@ namespace Discount.API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("DiscountType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -43,6 +46,7 @@ namespace Discount.API.Migrations
                             Id = 1,
                             Amount = 10,
                             Description = "IPhone X Discount 10%",
+                            DiscountType = 0,
                             ProductName = "IPhone X"
                         },
                         new
@@ -50,6 +54,7 @@ namespace Discount.API.Migrations
                             Id = 2,
                             Amount = 10,
                             Description = "Samsung 10 Discount 10%",
+                            DiscountType = 0,
                             ProductName = "Samsung 10"
                         });
                 });

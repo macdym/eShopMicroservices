@@ -1,4 +1,5 @@
-WebApplication.CreateBuilder(args)
+WebApplication
+    .CreateBuilder(args)
     .RegisterServices()
     .Build()
     .ConfigureApp()
