@@ -1,6 +1,4 @@
-﻿using Discount.Grpc;
-
-namespace Basket.API.Basket.StoreBasket
+﻿namespace Basket.API.Basket.StoreBasket
 {
     public class StoreBasketDiscountService(
         DiscountProtoService.DiscountProtoServiceClient discountProtoServiceClient)

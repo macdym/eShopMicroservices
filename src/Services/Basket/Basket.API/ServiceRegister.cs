@@ -36,6 +36,11 @@
 
             builder.Services.AddValidatorsFromAssembly(assemblyMarker);
 
+            builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
+            {
+                options.Address = new Uri(builder.Configuration["Grpc:DiscountUrl"]!);
+            });
+
             return  builder;
         }
 
@@ -53,13 +58,14 @@
                 options.Configuration = redisConnectionString;
             });
 
+            builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+            builder.Services.Decorate<IBasketRepository, CashedBasketRepository>();
+
             return builder;
         }
 
         private static WebApplicationBuilder SetDependencyInjectionServices(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IBasketRepository, BasketRepository>();
-            builder.Services.Decorate<IBasketRepository, CashedBasketRepository>();
             builder.Services.AddTransient<IStoreBasketDiscountService, StoreBasketDiscountService>();
 
             return builder;

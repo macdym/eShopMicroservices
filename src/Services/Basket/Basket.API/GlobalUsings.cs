@@ -27,6 +27,7 @@ global using Basket.API.Data;
 global using Basket.API.Models;
 global using Basket.API.Basket.StoreBasket;
 global using Basket.API.Basket.StoreBasket.Interfaces;
+global using Discount.Grpc;
 
 #endregion
 
