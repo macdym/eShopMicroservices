@@ -61,6 +61,7 @@ services:
     depends_on:
       - basketdb
       - distributedcache
+      - discount.api
     ports:
       - "6001:8080"
       - "6061:8081"
