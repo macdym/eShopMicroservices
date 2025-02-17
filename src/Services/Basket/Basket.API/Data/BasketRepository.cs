@@ -18,7 +18,7 @@
             {
                 var basketDb = await GetBasketAsync(cart.UserName, cancellationToken);
 
-                basketDb.Adapt(cart);
+                cart.Adapt(basketDb);
 
                 session.Update(basketDb);
             }
