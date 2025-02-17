@@ -38,7 +38,7 @@
 
             builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
             {
-                options.Address = new Uri(builder.Configuration["Grpc:DiscountUrl"]!);
+                options.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]!);
             });
 
             return  builder;

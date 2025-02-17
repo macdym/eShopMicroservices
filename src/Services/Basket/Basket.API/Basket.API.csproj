@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Commons\BasketDiscount\BasketDiscount.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
+    <ProjectReference Include="..\..\..\Common\BasketDiscount\BasketDiscount.csproj" />
   </ItemGroup>
 
   <ItemGroup>

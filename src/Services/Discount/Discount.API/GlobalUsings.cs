@@ -14,7 +14,6 @@ global using Grpc.Core;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
-global using 
 #endregion
 
 #region BasketDiscount
