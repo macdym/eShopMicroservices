@@ -2,7 +2,7 @@
 {
     public static class AppConfigurator
     {
-        public static WebApplication ConfigureApp(this WebApplication app)
+        public static WebApplication Configure(this WebApplication app)
         {
             app.UseMigration();
             app.MapGrpcService<DiscountService>();
