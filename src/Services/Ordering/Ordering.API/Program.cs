@@ -1,6 +1,7 @@
 WebApplication.CreateBuilder(args)
-    .RegisterServices()
+    .AddServices()
     .Build()
+    .Configure()
     .Run();
 
 //app.UseHttpsRedirection();

@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ordering.Application
+﻿namespace Ordering.Application
 {
-    class DependencyInjection
+    public static class DependencyInjection
     {
+        public static WebApplicationBuilder AddApplicationServices(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddMediatR((config) =>
+            {
+                config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+                config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+            });
+
+            return builder;
+        }
     }
 }
